@@ -1,0 +1,8 @@
+The following installations are needed from command line:
+
+1) Node
+2) npm install express --save
+3) npm install nodemon --save-dev
+4) npm install body-parser --save
+5) npm install mongodb --save
+6) nom install ejs --save

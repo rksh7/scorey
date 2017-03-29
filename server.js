@@ -17,6 +17,14 @@ const express = require('express')
 const app = express()
 
 
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 8080;
+
+app.listen(port, function() {
+    console.log('Our app is running on http://localhost:' + port);
+});
+
 //Express doesn’t handle reading data from the <form> element on it’s own. We have to add another package called body-parser to gain this functionality. Make sure you place body-parser before your CRUD handlers!
 //The urlencoded method within body-parser tells body-parser to extract data from the <form> element and add them to the body property in the request object.
 const bodyParser= require('body-parser')

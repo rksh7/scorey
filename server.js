@@ -36,6 +36,30 @@ app.use(bodyParser.json())
 //tell Express to make the public folder accessible to the public by using a built-in middleware called express.static
 app.use(express.static('public'))
 
+
+//API: Fetch & show scorey for a team
+app.get('/scoreyapi/:team', (req, res) => {
+    console.log('entering scorey api')
+    console.log('scorey wanted for team: ' + req.params.team)
+
+    var team = req.params.team
+    var date = 'today'
+    
+    db.collection('live_games').findOne({team_name: team, date: date}, function(err, records) {  
+        console.log('fetching scorey')
+        console.log(records)
+        
+        res.render('scoreyfromapi.ejs', {game_data: records})  
+    })    
+        
+   //res.send('{"id": 1,"name":"Matt","band":"BBQ Brawlers"}');
+    //res.sendFile('/Users/Sudhakar/Documents/Sudhakar/OneDrive/Personal/Development/scorey' + '/home.html')
+    //res.render('home.ejs')
+
+})
+
+
+
 //load first home page on URL hit
 app.get('/scorey', (req, res) => {
     //console.log('entering scorey')

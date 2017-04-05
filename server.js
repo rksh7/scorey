@@ -16,6 +16,8 @@ console.log('server.js is working')
 const express = require('express')
 const app = express()
 
+//global.jQuery = global.$ = require('jquery')
+//const bootstrap = require('bootstrap')
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -58,7 +60,14 @@ app.get('/scoreyapi/:team', (req, res) => {
 
 })
 
+//load index page on URL hit
+app.get('/index', (req, res) => {
+    //console.log('entering scorey')
+    //res.send('hello scorey')
+    res.sendFile(__dirname + '/index.html')
+    //res.render('home.ejs')
 
+})
 
 //load first home page on URL hit
 app.get('/scorey', (req, res) => {

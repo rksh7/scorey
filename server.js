@@ -105,7 +105,7 @@ app.set('view engine', 'ejs')
 //The toArray method takes in a callback function that allows us to do stuff with quotes we retrieved from MongoLab.
 app.get('/follow', (req, res) => {
     
-    db.collection('live_games').find({}, { team_name: 1, opposition_name: 1, venue: 1, date:1 }).toArray(function(err, results) {
+    db.collection('live_games').find({}, {forteam: 1, againstteam: 1, venue: 1, date:1, startedby: 1, passkey: 1 }).toArray(function(err, results) {
         
         //console.log(results)
         if (err) return console.log(err)
@@ -120,15 +120,15 @@ app.get('/update', (req, res) => {
     
     db.collection('live_games').find({}, {forteam: 1, againstteam: 1, venue: 1, date:1, startedby: 1, passkey: 1 }).toArray(function(err, results) {
         
-        console.log('getting live games')
-        console.log(results)        
+        //console.log('getting live games')
+        //console.log(results)        
         if (err) return console.log(err)
         res.render('update.ejs', {live_games: results})
         
     })    
 })
 
-
+/* OLD FOLLOW SCOREY CODE
 app.post('/followscorey', (req, res) => {
     
     console.log('followgame form submitted') 
@@ -147,6 +147,7 @@ app.post('/followscorey', (req, res) => {
         res.render('followgame.ejs', {game_data: records})  
     })
 })
+*/
 
 //This handles the form being submitted from the html file. The form is submitted with a 'POST' request. Express doesn’t handle reading data from the <form> element on it’s own. We have to add another package called body-parser to gain this functionality. Make sure you place body-parser before your CRUDparser handlers!
 app.post('/startgame', (req, res) => {
@@ -166,6 +167,45 @@ app.post('/startgame', (req, res) => {
     res.render('updategame.ejs', {game_data: req.body})      
     
 })
+
+//Function to follow an existing scorey
+app.post('/followscorey', (req, res) => {
+    
+    //console.log('entering start scorey')
+    console.log(req.body)
+    
+    var startedby = req.body.selected_startedby
+    var forteam = req.body.selected_forteam
+    var againstteam = req.body.selected_againstteam
+    var venue = req.body.selected_venue
+    var date = req.body.selected_date
+    var updatedby = req.body.user_name
+    //var score = req.body.user_name + ' joined..'
+    var chatter = req.body.user_name + ' joined..'
+    var timestamp = new Date()
+
+    var sess
+    sess = req.session
+    sess.scorey_starter = startedby
+    sess.team = forteam
+    sess.opposition = againstteam
+    sess.venue = venue
+    sess.date = date
+    sess.user_name = updatedby
+    
+    db.collection('live_games').findOneAndUpdate(
+        {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},
+        {$push: {chatterlog: {chatter: chatter, updatedby: updatedby, time: timestamp}}},
+        {upsert: true, returnOriginal: false},
+        function(err, records) {  
+            //console.log('fetching scorey')
+            //console.log(records.value.scorelog.length)
+            //res.redirect('/')
+            res.render('followgame.ejs', {game_data: records.value})  
+    })
+    
+})
+
 
 //Function to Join an existing Scorey
 app.post('/joinscorey', (req, res) => {
@@ -322,6 +362,33 @@ app.post('/updatechatter', (req, res) => {
     
 })
 
+//Function to post chatter on scorey
+app.post('/updatefollowchatter', (req, res) => {
+    
+    var startedby = req.body.startedby
+    var forteam = req.body.forteam
+    var againstteam = req.body.againstteam
+    var venue = req.body.venue
+    var date = req.body.date
+    var chatter = req.body.chatter_update
+    var timestamp = new Date()
+
+    var sess
+    sess = req.session
+    var updatedby = sess.user_name
+    
+    db.collection('live_games').findOneAndUpdate(
+        {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},
+        {$push: {chatterlog: {chatter: chatter, updatedby: updatedby, time: timestamp}}},
+        {upsert: true, returnOriginal: false},
+        function(err, records) {  
+            //console.log('fetching scorey')
+            //console.log(records.value.scorelog.length)
+            //res.redirect('/')
+            res.render('followgame.ejs', {game_data: records.value})  
+    })
+    
+})
 
 app.post('/updategame', (req, res) => {
     //prints a message on console

@@ -3,9 +3,31 @@
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Update Scorey</title>
+    <meta charset="UTF-8">
+    <!-- Autorefresh every 5 seconds <meta http-equiv="refresh" content="5"> -->
+    <title>Update Scorey</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Free Bootstrap Themes designed by 365bootstrap.com" />
+	
+	 <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	
+	<!-- Custom Theme files -->
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="css/contact-buttons.css" rel="stylesheet">
 
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="js/jquery.min.js"></script>
+
+	<!---pop-up-box---->
+	<script type="text/javascript" src="js/modernizr.custom.min.js"></script>    
+	<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+	<!---//pop-up-box---->
+    
     <style>
         
         .button {
@@ -39,28 +61,16 @@
             color: green;
         }
 
-        body {
-            text-align: center;
-        }
-
         table {
             border-collapse: collapse;
-            width: 30%;
-            border: 1px solid black;
+            width: 100%;
+            border: 0px;
         }
 
         th {
             border: 1px solid black;
             text-align: left;
             padding: 15px;
-        }
-
-        td {
-            border: 1px solid black;
-            width: 15%;
-            height: 40px;
-            vertical-align: center;
-            text-align: center;
         }
 
         .textbox {
@@ -92,58 +102,232 @@
         }
 
         div.scorey {
-            border: 1px black;
-            width: 550px;
-            height: 250px;
+            width: 100%;
+            height: 200px;
             overflow-y: scroll;
         }
+
+        td.scorey {
+            border: 0px;
+            width: 100%;
+            vertical-align: center;
+            text-align: left;
+        }
+
+        p.scorey {
+            padding-left: 1.0em;
+            padding-top: 0.0em;
+            font-size:16px;
+            color: #800080;
+        }
+
+        p.scoreyuser {
+            padding-left: 1.0em;
+            padding-top: 0.0em;
+            font-size:14px;
+            color: #C0C0C0;
+        }
+        
+        div.chatter {
+            width: 100%;
+            height: 400px;
+            overflow-y: scroll;
+        }
+
+        td.chatter {
+            border: 0px;
+            width: 100%;
+            vertical-align: center;
+            text-align: left;
+        }
+
+        p.chatter {
+            padding-left: 1.0em;
+            padding-top: 0.0em;
+            font-size:16px;
+            color: #000000;
+        }
+
+        p.chatteruser {
+            padding-left: 1.0em;
+            padding-top: 0.0em;
+            font-size:14px;
+            color: #C0C0C0;
+        }
+        
+        .navbar-text {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            text-align: center;
+            margin: auto;
+            padding-top: 10px;
+            color: #fff; 
+        }
+        
+        .btn {background: #DA251D;}
+        .btn:hover {color:#333;border:1px solid #DA251D;background:transparent;}
     </style>
 
 </head>
 <body>
 
-<p class="welcome"> Let's start sharing updates on your game.. </p><br>
+<!-- /////////////////////////////////////////Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
 
-<div>
-<table>
-    <tr>
-        <td>Your team: </td>
-        <td><b><%= game_data.team_name %></b></td></tr>
-    <tr>
-        <td>Opposition: </td>
-        <td><b><%= game_data.opposition_name %></b></td></tr>
-    <tr>
-        <td>At: </td>
-        <td><b><%= game_data.venue %></b></td></tr>
-</table>
-</div>
-<br><br>    
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="images/logo2.png" class="hidden-xs" alt="">
+                <h3 class="visible-xs">Scorey</h3>
+            </a>
+            <p class="navbar-text" style="color:powderblue;"><%= game_data.forteam %> vs. <%= game_data.againstteam %> &nbsp;&nbsp;at <%= game_data.venue %></p>
 
-<div align="center">
-<table style="width:800px">
-    <tr>
-        <td style="text-align:left">The scorey so far: </td></tr>
-    <tr valign="top">
-        <td style="text-align:left; height: 400px;">
-                <% for(var i=0; i<game_data.scoreylog.scorey.length; i++) {%>
-                <%= game_data.scoreylog.scorey[i] %>
-                <span style="color:grey"><i>
-                    <%= game_data.scoreylog.timestamp[i] %></i></span>
-                <br><br>
-                <% } %>
-        </td></tr>
-</table>
-<form action="/updatescorey" method="POST">
-    <input type="text" class="textbox" placeholder="what's happening now.." name="scorey_update">
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="page-scroll" href="#intro">Home</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#about_scorey">About Scorey</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="contact.html">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav> 
 
-    <input type="hidden" name="team_name" value="<%= game_data.team_name %>"/>
-    <input type="hidden" name="opposition_name" value="<%= game_data.opposition_name %>"/>
-    <input type="hidden" name="venue" value="<%= game_data.venue %>"/>
-    <input type="hidden" name="date" value="<%= game_data.date %>"/>    
+<br>    
+
+<!-- SHOW SCOREY - GAME UPDATES -->
+<section class="box-content box-1" id="start_scorey">
+    <div class="container">
+        <form name="formStart_scorey" method="POST" action="/updatescorey">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <div class="scorey well" id="divscorey">
+                            <table>
+                            <tr valign="top">
+                                <td class="scorey">
+                                    <% for(var i=0; i<game_data.scorelog.length; i++) {%>
+                                    <p class="scorey"><%= game_data.scorelog[i].score %></p>
+                                    <% } %>
+                                </td>
+                                <td class="scorey">
+                                    <% for(var i=0; i<game_data.scorelog.length; i++) {%>
+                                    <p class="scoreyuser"><i>~<%= game_data.scorelog[i].updatedby %></i></p>
+                                    <% } %>
+                                </td>
+                                
+                            </tr>
+                            </table>
+                        </div>
+                    </div>						
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="score_update" id="score_update" placeholder="Score here..." required="required" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block" name="btnPost_scorey" id="btnPost_scorey">
+                        Post</button>
+                    </div>
+                </div>                        
+            </div>
+            <input type="hidden" name="forteam" value="<%= game_data.forteam %>"/>
+            <input type="hidden" name="againstteam" value="<%= game_data.againstteam %>"/>
+            <input type="hidden" name="venue" value="<%= game_data.venue %>"/>
+            <input type="hidden" name="date" value="<%= game_data.date %>"/>
+            <input type="hidden" name="startedby" value="<%= game_data.startedby %>"/>
+            
+        </form>
+    </div>
+</section>     
+
+<!-- SHOW SCOREY - CHATTER -->
+<section class="box-content box-1" id="start_chatter">
+    <div class="container">
+        <form name="formStart_chatter" method="POST" action="/updatechatter">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <div class="chatter well" id="divchatter">
+                            <table>
+                            <tr valign="top">
+                                <td class="chatter">
+                                    <% for(var i=0; i<game_data.chatterlog.length; i++) {%>
+                                    <p class="chatter"><%= game_data.chatterlog[i].chatter %></p>
+                                    <% } %>
+                                </td>
+                                <td class="chatter">
+                                    <% for(var i=0; i<game_data.chatterlog.length; i++) {%>
+                                    <p class="chatteruser"><i>~<%= game_data.chatterlog[i].updatedby %></i></p>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            </table>
+                        </div>
+                    </div>						
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="chatter_update" id="chatter_update" placeholder="Cheer here..." required="required" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block" name="btnPost_chatter" id="btnPost_chatter">
+                        CHATTER</button>
+                    </div>
+                </div>                        
+            </div>
+            <input type="hidden" name="forteam" value="<%= game_data.forteam %>"/>
+            <input type="hidden" name="againstteam" value="<%= game_data.againstteam %>"/>
+            <input type="hidden" name="venue" value="<%= game_data.venue %>"/>
+            <input type="hidden" name="date" value="<%= game_data.date %>"/>
+            <input type="hidden" name="startedby" value="<%= game_data.startedby %>"/>
+            
+        </form>
+    </div>
+</section>  
     
-    <button type="submit" class="button">Shoot!</button>
-</form>
-</div>    
+
+<!-- Footer -->
+
+<!-- Core JavaScript Files -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.backTop.min.js"></script>
+<script>
+    $(document).ready( function() {
+        $('#backTop').backTop({
+            'position' : 1200,
+            'speed' : 500,
+            'color' : 'red',
+        });
+    });
+
+var objScoreyDiv = document.getElementById("divscorey");
+var objChatterDiv = document.getElementById("divchatter");    
+objScoreyDiv.scrollTop = objScoreyDiv.scrollHeight;
+objChatterDiv.scrollTop = objChatterDiv.scrollHeight;    
+</script>  
     
 </body>
 </html>

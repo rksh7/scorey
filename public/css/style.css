@@ -155,7 +155,7 @@ header {margin-top:20px;width: 100%;background: #333;}
 
 
 /* ---HomePage--- */
-.box-content {padding: 50px 0;}
+.box-content {padding: 50px 0 0 0;}
 .box-content .heading{margin-bottom: 80px;text-align:center;}
 .box-content .heading h2 {height: 75px;background: #DB4437;padding: 13px 0 0 0;position: relative;width: 100%;font-size: 45px;text-decoration: none;color: #fff;	}
 .box-content .heading h2:after {content: "";  border-top: 37px solid transparent;border-bottom: 37px solid transparent;border-right: 37px solid #fff;position: absolute; right: 0; top: 0;}
@@ -472,7 +472,7 @@ border: 1px solid rgba(255, 255, 255, 0.7);bottom: 1em;content: '';left: 1em;opa
 /* ------------------------------------Button---------------------------------- */
 /* ---------------------------------------------------------------------------- */
 .btn {
-	border-radius: 2px;
+	border-radius: 1px;
 	position: relative;
 	display: inline-block;
 	outline: none;
@@ -485,6 +485,7 @@ border: 1px solid rgba(255, 255, 255, 0.7);bottom: 1em;content: '';left: 1em;opa
 	font-size: 14px;
 }
 a.btn:focus{outline: 0;}
+
 
 .btn-1 {color: #fff;background-color: transparent;border: 2px solid #fff;margin-right: 15px;min-width: 170px;line-height: 26px;}
 .btn-1:hover {color: #000;background-color: #fff;border-color: #fff;}

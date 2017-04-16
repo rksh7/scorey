@@ -14,7 +14,9 @@ console.log('server.js is working')
 
 //allows using express in this file after express is installed and specified in package.json in the folder
 const express = require('express')
+var session = require('express-session')
 const app = express()
+app.use(session({secret: 'sudhkarsharma', resave: false, saveUninitialized: false}))
 
 //global.jQuery = global.$ = require('jquery')
 //const bootstrap = require('bootstrap')
@@ -37,7 +39,6 @@ app.use(bodyParser.json())
 
 //tell Express to make the public folder accessible to the public by using a built-in middleware called express.static
 app.use(express.static('public'))
-
 
 //API: Fetch & show scorey for a team
 app.get('/scoreyapi/:team', (req, res) => {
@@ -165,27 +166,117 @@ app.post('/startgame', (req, res) => {
     
 })
 
-app.post('/updatescorey', (req, res) => {
-    //prints a message on console
-    //console.log('updatescorey form submitted') 
-    //prints the contents of the form from the index.html when it is submitted with a POST method
+
+//Function to Start a New Scorey
+app.post('/startscorey', (req, res) => {
+    
+    //console.log('entering start scorey')
     //console.log(req.body)
     
+    var scorey_starter = req.body.scorey_starter
     var team = req.body.team_name
     var opposition = req.body.opposition_name
     var venue = req.body.venue
     var date = req.body.date
-    var scorey_update = req.body.scorey_update
+    var score = req.body.score_update
     var timestamp = new Date()
+
+    var sess
+    sess = req.session
+    sess.scorey_starter = scorey_starter
+    sess.team = team
+    sess.opposition = opposition
+    sess.venue = venue
+    sess.date = date
+    sess.user_name = scorey_starter
+    
+    db.collection('live_games').save(
+        {startedby: scorey_starter, forteam: team, againstteam: opposition, venue: venue, date: date, scorelog: [{score: score,updatedby: scorey_starter,time: timestamp}],
+        chatterlog: [{chatter: score,updatedby: scorey_starter,time: timestamp}]},
+        (err, result) => {
+        if (err) return console.log(err)
+
+        console.log('saved to database')
+        //console.log(result)
+        //redirect back to some page otherwise the flow will be stuck at the database
+        //res.redirect('/showscorey?scorey='+req.body.scorey_starter)     
+        res.redirect('/showscorey')     
+        
+    })
+    
+})
+
+//Function to show updated Scorey
+app.get('/showscorey', (req, res) => {
+    
+    var sess
+    sess = req.session
+    //console.log('session value' + sess.scorey_starter)
+    //res.redirect('/')     
+   db.collection('live_games').findOne({startedby: sess.scorey_starter, forteam: sess.team, againstteam: sess.opposition, venue: sess.venue, date:sess.date}, function(err, records) {
+        
+        //console.log(records)
+        if (err) return console.log(err)
+        
+        //console.log(records.scorelog.length)
+        //res.redirect('/')
+        res.render('updategame.ejs', {game_data: records})  
+        
+    })    
+})
+
+
+//Function to Update score in Scorey
+app.post('/updatescorey', (req, res) => {
+
+    var startedby = req.body.startedby
+    var forteam = req.body.forteam
+    var againstteam = req.body.againstteam
+    var venue = req.body.venue
+    var date = req.body.date
+    var score = req.body.score_update
+    var timestamp = new Date()
+
+    var sess
+    sess = req.session
+    var updatedby = sess.user_name
     
     db.collection('live_games').findOneAndUpdate(
-        {team_name: team, opposition_name: opposition, venue: venue, date: date},
-        {$push: {"scoreylog.scorey": scorey_update, "scoreylog.timestamp": timestamp}},
+        {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},
+        {$push: {scorelog: {score: score, updatedby: updatedby, time: timestamp}}},
         {upsert: true, returnOriginal: false},
         function(err, records) {  
-            console.log('fetching scorey')
-            //console.log(records)
+            //console.log('fetching scorey')
+            //console.log(records.value.scorelog.length)
+            //res.redirect('/')
+            res.render('updategame.ejs', {game_data: records.value})  
+    })
+    
+})
 
+//Function to post chatter on scorey
+app.post('/updatechatter', (req, res) => {
+    
+    var startedby = req.body.startedby
+    var forteam = req.body.forteam
+    var againstteam = req.body.againstteam
+    var venue = req.body.venue
+    var date = req.body.date
+    var chatter = req.body.chatter_update
+    var timestamp = new Date()
+
+    var sess
+    sess = req.session
+    var updatedby = sess.user_name
+    
+    db.collection('live_games').findOneAndUpdate(
+        {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},
+        {$push: {chatterlog: {chatter: chatter, updatedby: updatedby, time: timestamp}}},
+        {upsert: true, returnOriginal: false},
+        function(err, records) {  
+            //console.log('fetching scorey')
+            //console.log(records.value.scorelog.length)
+            //res.redirect('/')
             res.render('updategame.ejs', {game_data: records.value})  
     })
     

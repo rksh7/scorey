@@ -76,7 +76,6 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <!-- <form name="formStart_scorey" method="POST" action="/updatescorey"> -->
                 <form name="formStart_scorey" method="POST" action="/startscorey">
                     <div class="row">
                         <div class="col-xs-6">
@@ -110,7 +109,7 @@
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control input-lg" name="name" id="name" placeholder="Set a passkey" required="required" />
+                                <input type="text" class="form-control input-lg" name="passkey" id="passkey" placeholder="Set a passkey" required="required" />
                             </div>
                         </div>
                     </div>
@@ -152,7 +151,7 @@
 <script src="js/jquery.backTop.min.js"></script>
 <script>
 
-function setUserValues {
+function setUserValues() {
     
     var sessionUser = document.getElementById('user_name').value;
     

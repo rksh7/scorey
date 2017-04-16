@@ -3,9 +3,31 @@
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Update Scorey</title>
+    <title>Select Scorey</title>
+    <meta charset="UTF-8">
+    <!-- Autorefresh every 5 seconds <meta http-equiv="refresh" content="5"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Free Bootstrap Themes designed by 365bootstrap.com" />
+	
+	 <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	
+	<!-- Custom Theme files -->
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="css/contact-buttons.css" rel="stylesheet">
 
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="js/jquery.min.js"></script>
+
+	<!---pop-up-box---->
+	<script type="text/javascript" src="js/modernizr.custom.min.js"></script>    
+	<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+	<!---//pop-up-box---->
+    
     <style>
         .button {
             background-color: #4CAF50;
@@ -32,73 +54,226 @@
             color: green;
         }
 
-        body {
+        .navbar-text {
+            position: absolute;
+            width: 100%;
+            left: 0;
             text-align: center;
+            margin: auto;
+            padding-top: 10px;
+            color: #fff; 
         }
 
-        table {
-            border-collapse: collapse;
-            width: 50%;
-            border: 1px solid black;
+        tr.games {
+            vertical-align: center;
+            text-align: center;
+            height: 60px;
         }
 
-        th {
-            border: 1px solid black;
-            text-align: left;
-            padding: 15px;
-        }
-
-        td {
-            border: 1px solid black;
-            height: 50px;
+        th.games {
             vertical-align: center;
             text-align: center;
         }
 
+        .textbox {
+            width: 400px;
+            padding: 15px 25px;
+            font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #9D9E9E;
+            text-shadow: 1px 1px 0 #FFF;
+            background: #FFF;
+            border: 1px solid #FFF;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
+            -moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+            -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
+        }
+          .textbox:focus {
+            background: #DFE9EC;
+            color: #414848;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+            -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+            outline: 0;
+        }
+          .textbox:hover {
+            background: #DFE9EC;
+            color: #414848;
+        }
+
+        .btn {background: #DA251D;}
+        .btn:hover {color:#333;border:1px solid #DA251D;background:transparent;}
+        
     </style>
 
 </head>
 <body>
 
-<p class="welcome"> Welcome to Scorey! </p>
-<br><br>
+<!-- /////////////////////////////////////////Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
 
-<div>
-    <h2>Select a game to update</h2>
-</div>
-<br><br>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="images/logo2.png" class="hidden-xs" alt="">
+                <h3 class="visible-xs">Scorey</h3>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="page-scroll" href="#intro">Home</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#about_scorey">About Scorey</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="contact.html">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav> 
 
-<form action="/updatescorey" method="POST">
-<div align="center">
-    <table>
-        <tr>
-            <td><b>Select</b></td>
-            <td><b>Team 1</b></td>
-            <td><b>Team 2</b></td>
-            <td><b>Venue</b></td>
-            <td><b>Date</b></td>
-        </tr>
-        <% for(var i=0; i<live_games.length; i++) {%>
-        <tr>
-            <td><input type="radio" id= "game<%= i %>" name= "game" value="<%= i %>" onclick = "gameSelected(<%= i %>)"></td>
-            <td><%= live_games[i].team_name %></td><input type="hidden" id="team_name<%= i %>" value="<%= live_games[i].team_name %>"/>
-            <td><%= live_games[i].opposition_name %></td><input type="hidden" id="opposition_name<%= i %>" value="<%= live_games[i].opposition_name %>"/>
-            <td><%= live_games[i].venue %></td><input type="hidden" id="venue<%= i %>" value="<%= live_games[i].venue %>"/>
-            <td><%= live_games[i].date %></td><input type="hidden" id="date<%= i %>" value="<%= live_games[i].date %>"/>
-        </tr>
-        <% } %>
-    </table>
-</div>
-<br>
-    <input type="hidden" name="team_name" id= "team_name" value=""/>
-    <input type="hidden" name="opposition_name" id= "opposition_name" value=""/>
-    <input type="hidden" name="venue" id= "venue" value=""/>
-    <input type="hidden" name="date" id= "date" value=""/>
-    <input type="hidden" name="scorey_update" value="another bhogle joined!">
-    <button type="submit" class= "button">Submit</button>
-</form>
+<!-- SHOW GAMES TO SELECT FROM -->
+<section class="box-content box-1" id="start_scorey">
+    <div class="container">
+        <form name="formSelect_game" method="POST" action="/joinscorey">
+            <div class="row heading">
+                <div class="col-xs-12">	
+                    <h2>Update scorey</h2>
+                    <div class="intro">
+                        Select one of the games live at the moment,<br> and join your mates in sharing updates.
+                    </div>
+                </div>    
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <div class="well" id="divscorey">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="games">Select</th>
+                                        <th class="games">For</th>
+                                        <th class="games">Against</th>
+                                        <th class="games">Venue</th>
+                                        <th class="games">Date</th>
+                                        <th class="games">Started by</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% for(var i=0; i<live_games.length; i++) {%>
+                                <tr class="games">
+                                    <td style="align: middle; vertical-align: middle;">
+                                        <input type="radio" id= "game<%= i %>" name= "game" value="<%= i %>" onclick = "gameSelected(<%= i %>)">
+                                    </td>
+                                    <td style="align: middle; vertical-align: middle;"><%= live_games[i].forteam %></td>
+                                        <input type="hidden" id="forteam<%= i %>" value="<%= live_games[i].forteam %>"/>
+                                    <td style="align: middle; vertical-align: middle;"><%= live_games[i].againstteam %></td>
+                                        <input type="hidden" id="againstteam<%= i %>" value="<%= live_games[i].againstteam %>"/>
+                                    <td style="align: middle; vertical-align: middle;"><%= live_games[i].venue %></td>
+                                        <input type="hidden" id="venue<%= i %>" value="<%= live_games[i].venue %>"/>
+                                    <td style="align: middle; vertical-align: middle;"><%= live_games[i].date %></td>
+                                        <input type="hidden" id="date<%= i %>" value="<%= live_games[i].date %>"/>
+                                    <td style="align: middle; vertical-align: middle;"><%= live_games[i].startedby %></td>
+                                        <input type="hidden" id="startedby<%= i %>" value="<%= live_games[i].startedby %>"/> 
+                                        <input type="hidden" id="passkey<%= i %>" value="<%= live_games[i].passkey %>"/> 
+                                </tr>
+                                <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>						
+                </div>
+            </div>        
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="passkey" id="passkey" placeholder="Enter update key.." required="required" onblur="checkPassKey();" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="user_name" id="user_name" placeholder="Choose a pen name.." required="required" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block" name="btnPost_scorey" id="btnPost_scorey">
+                        START</button>
+                    </div>
+                </div>                        
+            </div>
+            <input type="hidden" name="selected_forteam" id= "selected_forteam" value=""/>
+            <input type="hidden" name="selected_againstteam" id= "selected_againstteam" value=""/>
+            <input type="hidden" name="selected_venue" id= "selected_venue" value=""/>
+            <input type="hidden" name="selected_date" id= "selected_date" value=""/>           
+            <input type="hidden" name="selected_startedby" id= "selected_startedby" value=""/>
+            <input type="hidden" name="selected_passkey" id= "selected_passkey" value=""/>
+        </form>
+    </div>
+</section>     
+    
+<!-- Footer -->
 
-<script src="main.js"> </script>
+<!-- Core JavaScript Files -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.backTop.min.js"></script>
+<script>
+    $(document).ready( function() {
+        $('#backTop').backTop({
+            'position' : 1200,
+            'speed' : 500,
+            'color' : 'red',
+        });
+    });
+
+document.getElementById('btnPost_scorey').disabled = true;
+    
+function gameSelected(record) {   
+    var forteam = document.getElementById('forteam'+record).value;
+    var againstteam = document.getElementById('againstteam'+record).value;
+    var venue = document.getElementById('venue'+record).value;
+    var date = document.getElementById('date'+record).value;
+    var startedby = document.getElementById('startedby'+record).value;
+    var passkey = document.getElementById('passkey'+record).value;
+    
+    document.getElementById('selected_forteam').value = forteam;
+    document.getElementById('selected_againstteam').value = againstteam;
+    document.getElementById('selected_venue').value = venue;
+    document.getElementById('selected_date').value = date;
+    document.getElementById('selected_startedby').value = startedby;
+    document.getElementById('selected_passkey').value = passkey;
+    
+    //alert(document.getElementById('passkey'+record).value);
+}
+    
+function checkPassKey() {
+    
+    var passkey_entered = document.getElementById('passkey').value;
+    var passkey_check = document.getElementById('selected_passkey').value;
+    
+    if (passkey_entered != passkey_check){
+        alert('Your passkey is incorrect! Please enter again to proceed.');
+    }
+    else{
+        document.getElementById('btnPost_scorey').disabled = false;
+    }
+    
+    return true;
+}
+    
+</script>  
     
 </body>
 </html>

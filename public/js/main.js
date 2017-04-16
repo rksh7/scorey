@@ -26,22 +26,6 @@ follow.addEventListener('click', function () {
     
 })
 
-function gameSelected(record) {
-    
-    //alert('team_name' + record);    
-    var team_name = document.getElementById('team_name'+record).value;
-    var opposition_name = document.getElementById('opposition_name'+record).value;
-    var venue = document.getElementById('venue'+record).value;
-    var date = document.getElementById('date'+record).value;
-    
-    document.getElementById('team_name').value = team_name;
-    document.getElementById('opposition_name').value = opposition_name;
-    document.getElementById('venue').value = venue;
-    document.getElementById('date').value = date;
-    
-}
-
-
 //------------- End ------------
 
 /*

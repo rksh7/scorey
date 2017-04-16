@@ -118,9 +118,10 @@ app.get('/follow', (req, res) => {
 //The toArray method takes in a callback function that allows us to do stuff with quotes we retrieved from MongoLab.
 app.get('/update', (req, res) => {
     
-    db.collection('live_games').find({}, { team_name: 1, opposition_name: 1, venue: 1, date:1 }).toArray(function(err, results) {
+    db.collection('live_games').find({}, {forteam: 1, againstteam: 1, venue: 1, date:1, startedby: 1, passkey: 1 }).toArray(function(err, results) {
         
-        //console.log(results)        
+        console.log('getting live games')
+        console.log(results)        
         if (err) return console.log(err)
         res.render('update.ejs', {live_games: results})
         
@@ -166,6 +167,43 @@ app.post('/startgame', (req, res) => {
     
 })
 
+//Function to Join an existing Scorey
+app.post('/joinscorey', (req, res) => {
+    
+    //console.log('entering start scorey')
+    console.log(req.body)
+    
+    var startedby = req.body.selected_startedby
+    var forteam = req.body.selected_forteam
+    var againstteam = req.body.selected_againstteam
+    var venue = req.body.selected_venue
+    var date = req.body.selected_date
+    var updatedby = req.body.user_name
+    var score = req.body.user_name + ' joined..'
+    var chatter = req.body.user_name + ' joined..'
+    var timestamp = new Date()
+
+    var sess
+    sess = req.session
+    sess.scorey_starter = startedby
+    sess.team = forteam
+    sess.opposition = againstteam
+    sess.venue = venue
+    sess.date = date
+    sess.user_name = updatedby
+    
+    db.collection('live_games').findOneAndUpdate(
+        {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},
+        {$push: {scorelog: {score: score, updatedby: updatedby, time: timestamp}, chatterlog: {chatter: chatter, updatedby: updatedby, time: timestamp}}},
+        {upsert: true, returnOriginal: false},
+        function(err, records) {  
+            //console.log('fetching scorey')
+            //console.log(records.value.scorelog.length)
+            //res.redirect('/')
+            res.render('updategame.ejs', {game_data: records.value})  
+    })
+    
+})
 
 //Function to Start a New Scorey
 app.post('/startscorey', (req, res) => {
@@ -179,6 +217,7 @@ app.post('/startscorey', (req, res) => {
     var venue = req.body.venue
     var date = req.body.date
     var score = req.body.score_update
+    var passkey = req.body.passkey
     var timestamp = new Date()
 
     var sess
@@ -191,7 +230,7 @@ app.post('/startscorey', (req, res) => {
     sess.user_name = scorey_starter
     
     db.collection('live_games').save(
-        {startedby: scorey_starter, forteam: team, againstteam: opposition, venue: venue, date: date, scorelog: [{score: score,updatedby: scorey_starter,time: timestamp}],
+        {startedby: scorey_starter, passkey: passkey, forteam: team, againstteam: opposition, venue: venue, date: date, scorelog: [{score: score,updatedby: scorey_starter,time: timestamp}],
         chatterlog: [{chatter: score,updatedby: scorey_starter,time: timestamp}]},
         (err, result) => {
         if (err) return console.log(err)
@@ -240,6 +279,7 @@ app.post('/updatescorey', (req, res) => {
     var sess
     sess = req.session
     var updatedby = sess.user_name
+    //console.log(updatedby)
     
     db.collection('live_games').findOneAndUpdate(
         {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},

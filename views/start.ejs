@@ -51,13 +51,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="page-scroll" href="#intro">Home</a>
+                    <a class="page-scroll" href="javascript: window.location.assign('/index')">Home</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#about_scorey">About Scorey</a>
+                    <a class="page-scroll" href="javascript: window.location.assign('/index#about_scorey')">About Scorey</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="contact.html">Contact Us</a>
+                    <a class="page-scroll" href="javascript: window.location.assign('/contact')">Contact Us</a>
                 </li>
             </ul>
         </div>
@@ -71,7 +71,7 @@
         <div class="row heading">
             <div class="col-xs-12">	
                 <h2>New scorey</h2>
-                <div class="intro">Just fill some game details, and start sharing immediately.</br> You can always ask others to give you a helping hand later.</div>
+                <div class="intro">Fill some game details, and start sharing immediately.<br>Others can join later to give you a helping hand.</div>
             </div>
         </div>
         <div class="row">
@@ -80,36 +80,36 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control input-lg" name="scorey_starter" id="scorey_starter" placeholder="Pick a pen name" required="required" />
+                                <input type="text" class="form-control" name="scorey_starter" id="scorey_starter" placeholder="Pick a pen name" required="required" />
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control input-lg" name="team_name" id="team_name" placeholder="What's your team" required="required" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control input-lg" name="opposition_name" id="opposition_name" placeholder="Who are you playing" required="required" />
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="form-group">
-                                <input type="date" class="form-control input-lg" name="date" id="date" placeholder="Date" required="required" />
+                                <input type="text" class="form-control" name="team_name" id="team_name" placeholder="What's your team" required="required" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control input-lg" name="venue" id="venue" placeholder="Where are you playing" required="required" />
+                                <input type="text" class="form-control" name="opposition_name" id="opposition_name" placeholder="Who are you playing" required="required" />
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control input-lg" name="passkey" id="passkey" placeholder="Set a passkey" required="required" />
+                                <input type="date" class="form-control" name="date" id="date" placeholder="Date" required="required" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="venue" id="venue" placeholder="Where are you playing" required="required" />
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="passkey" id="passkey" placeholder="Set a passkey" required="required" />
                             </div>
                         </div>
                     </div>

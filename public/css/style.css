@@ -157,9 +157,9 @@ header {margin-top:20px;width: 100%;background: #333;}
 /* ---HomePage--- */
 .box-content {padding: 50px 0 0 0;}
 .box-content .heading{margin-bottom: 80px;text-align:center;}
-.box-content .heading h2 {height: 75px;background: #DB4437;padding: 13px 0 0 0;position: relative;width: 100%;font-size: 45px;text-decoration: none;color: #fff;	}
-.box-content .heading h2:after {content: "";  border-top: 37px solid transparent;border-bottom: 37px solid transparent;border-right: 37px solid #fff;position: absolute; right: 0; top: 0;}
-.box-content .heading h2:before {content: "";  border-top: 37px solid transparent;border-bottom: 37px solid transparent;border-left: 37px solid #fff;position: absolute; left: 0; top: 0;}
+.box-content .heading h2 {height: 60px;background: #DB4437;padding: 13px 0 0 0;position: relative;width: 100%;font-size: 30px;text-decoration: none;color: #fff;	}
+.box-content .heading h2:after {content: "";  border-top: 30px solid transparent;border-bottom: 37px solid transparent;border-right: 37px solid #fff;position: absolute; right: 0; top: 0;}
+.box-content .heading h2:before {content: "";  border-top: 30px solid transparent;border-bottom: 37px solid transparent;border-left: 37px solid #fff;position: absolute; left: 0; top: 0;}
 .box-content .heading .intro{ margin:30px 0 10px 0;}
 
 .box-content.box-style{background: #F7F3E2; padding:110px 0;-moz-box-shadow: 0 0 10px 10px #999;-webkit-box-shadow: 0 0 10px 10px #999;box-shadow: 0px 0 10px 10px #999;}
@@ -495,5 +495,5 @@ a.btn:focus{outline: 0;}
 
 .btn-3 {color:#333;margin-top:0px;margin-top:15px;font-weight:bold;color:#DA251D;padding:6px 0;font-size: 16px;}
 
-.btn-4 {background: #DA251D;border: 2px solid transparent;margin:20px 0 10px 0;font-size:25px;}
+.btn-4 {background: #DA251D;border: 2px solid transparent;margin:20px 0 10px 0;font-size:20px;}
 .btn-4:hover {color:#333;border:2px solid #DA251D;background:transparent;}

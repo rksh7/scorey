@@ -70,6 +70,14 @@ app.get('/index', (req, res) => {
 
 })
 
+//load contact page on URL hit
+app.get('/contact', (req, res) => {
+    //console.log('entering scorey')
+    //res.send('hello scorey')
+    res.sendFile(__dirname + '/contact.html')
+    
+})
+
 //load first home page on URL hit
 app.get('/scorey', (req, res) => {
     //console.log('entering scorey')

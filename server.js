@@ -70,6 +70,15 @@ app.get('/index', (req, res) => {
 
 })
 
+//load emojitest page on URL hit
+app.get('/emojitest', (req, res) => {
+    //console.log('entering scorey')
+    //res.send('hello scorey')
+    res.sendFile(__dirname + '/emojitest.html')
+    //res.render('home.ejs')
+
+})
+        
 //load contact page on URL hit
 app.get('/contact', (req, res) => {
     //console.log('entering scorey')

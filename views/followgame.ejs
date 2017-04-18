@@ -27,6 +27,10 @@
 	<script type="text/javascript" src="js/modernizr.custom.min.js"></script>    
 	<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 	<!---//pop-up-box---->
+
+	<!---//Emojis ---->    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/emoji.css" rel="stylesheet">
     
     <style>
         
@@ -289,7 +293,7 @@
             <div class="row">
                 <div class="col-xs-8">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="chatter_update" id="chatter_update" placeholder="Cheer here..." required="required" />
+                        <input type="text" class="form-control" name="chatter_update" id="chatter_update" placeholder="Cheer here..." required="required"  data-emojiable="true"/>
                     </div>
                 </div>
                 <div class="col-xs-4">
@@ -332,7 +336,26 @@ objChatterDiv.scrollTop = objChatterDiv.scrollHeight;
 document.getElementById('score_update').disabled = true;
 document.getElementById('btnPost_scorey').disabled = true;    
     
+
+$(function() {
+// Initializes and creates emoji set from sprite sheet
+window.emojiPicker = new EmojiPicker({
+  emojiable_selector: '[data-emojiable=true]',
+  assetsPath: 'images/',
+  popupButtonClasses: 'fa fa-smile-o'
+});
+// Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+// You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+// It can be called as many times as necessary; previously converted input fields will not be converted again
+window.emojiPicker.discover();
+});
+    
 </script>  
+
+<script src="js/config.js"></script>
+<script src="js/util.js"></script>
+<script src="js/jquery.emojiarea.js"></script>
+<script src="js/emoji-picker.js"></script>
     
 </body>
 </html>

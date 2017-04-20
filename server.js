@@ -52,7 +52,7 @@ app.get('/scoreyapi/:team', (req, res) => {
         console.log('fetching scorey')
         console.log(records)
         
-        res.render('scoreyfromapi.ejs', {game_data: records})  
+        res.startrender('scoreyfromapi.ejs', {game_data: records})  
     })    
         
    //res.send('{"id": 1,"name":"Matt","band":"BBQ Brawlers"}');

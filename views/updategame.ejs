@@ -178,28 +178,6 @@
         .btn {background: #DA251D;}
         .btn:hover {color:#333;border:1px solid #DA251D;background:transparent;}
 
-        .whatsapp {
-          width: 50px;
-          height: 50px;
-          margin: 0 auto;
-          text-align: center;
-          border: 3px solid #008000;
-          border-radius: 50%;
-          transition-duration: 0.5s;
-        }
-        .whatsapp .fa-whatsapp {
-          padding-top: 5px;
-          font-size: 40px;
-          text-decoration: none;
-          color: #008000;
-        }
-        .whatsapp:hover {
-          background-color: #008000;
-        }
-        .whatsapp:hover .fa-whatsapp {
-          color: #fff;
-        }
-
         .box-content-close {padding: 0px 0 0 0;}
         .box-content-far {padding: 60px 0 0 0;}
         .box-content-share {padding: 5px 0 0 0;}
@@ -413,34 +391,6 @@ window.emojiPicker = new EmojiPicker({
 window.emojiPicker.discover();
 });
 
-function decorateWhatsAppLink() {
-  //set up the url
-  var url = 'whatsapp://send?text=';
-
-  //define the message text
-  var text = 'Hey.. catch up with the game.. follow the scorey at: http://scorey.herokuapp.com';
-
-  //encode the text
-  var encodedText = encodeURIComponent(text);
-
-  //find the link
-  var $whatsApp = $('.whatsapp a');
-
-  //set the href attribute on the link
-  $whatsApp.attr('href', url + encodedText);
-}
-
-//call the decorator function
-decorateWhatsAppLink();
-
-window.addEventListener("load",function() {
-	// Set a timeout...
-	setTimeout(function(){
-		// Hide the address bar!
-		window.scrollTo(0, 1);
-	}, 0);
-});
-    
 </script>  
 
 <script src="js/config.js"></script>

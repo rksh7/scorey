@@ -108,7 +108,7 @@
 
         div.scorey {
             width: 100%;
-            height: 200px;
+            height: 150px;
             overflow-y: scroll;
         }
 
@@ -135,7 +135,7 @@
         
         div.chatter {
             width: 100%;
-            height: 400px;
+            height: 250px;
             overflow-y: scroll;
         }
 
@@ -194,7 +194,12 @@
         .whatsapp:hover .fa-whatsapp {
           color: #fff;
         }
-        
+
+        .box-content-close {padding: 10px 0 0 0;}
+        .box-content-far {padding: 60px 0 0 0;}
+        .box-content-share {padding: 10px 0 0 0;}
+
+        .no-bottom-margin {margin-bottom: 3px !important;}
     </style>
 
 </head>
@@ -235,16 +240,14 @@
     </div>
 </nav> 
 
-<br>    
-    
 <!-- SHOW SCOREY - GAME UPDATES -->
-<section class="box-content box-1" id="start_scorey">
+<section class="box-content box-content-far box-1" id="start_scorey">
     <div class="container">
         <form name="formStart_scorey" method="POST" action="/updatescorey">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="form-group">
-                        <div class="scorey well" id="divscorey">
+                    <div class="form-group no-bottom-margin">
+                        <div class="scorey well no-bottom-margin" id="divscorey">
                             <table>
                             <tr valign="top">
                                 <td class="scorey">
@@ -275,7 +278,7 @@
                         <button type="submit" class="btn btn-block" name="btnPost_scorey" id="btnPost_scorey">
                         Post</button>
                     </div>
-                </div>                        
+                </div>
             </div>
             <input type="hidden" name="forteam" value="<%= game_data.forteam %>"/>
             <input type="hidden" name="againstteam" value="<%= game_data.againstteam %>"/>
@@ -286,17 +289,17 @@
         </form>
     </div>
 </section>     
-
+<!--
 <div class="whatsapp"><a class="fa fa-whatsapp" href="" target="_blank"></a></div>
-    
+-->    
 <!-- SHOW SCOREY - CHATTER -->
-<section class="box-content box-1" id="start_chatter">
+<section class="box-content box-content-close box-1" id="start_chatter">
     <div class="container">
         <form name="formStart_chatter" method="POST" action="/updatechatter">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="form-group">
-                        <div class="chatter well" id="divchatter">
+                    <div class="form-group no-bottom-margin">
+                        <div class="chatter well no-bottom-margin" id="divchatter">
                             <table>
                             <tr valign="top">
                                 <td class="chatter">
@@ -316,13 +319,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="form-group">
+                <div class="col-xs-8 no-bottom-margin">
+                    <div class="form-group no-bottom-margin">
                         <input type="text" class="form-control" name="chatter_update" id="chatter_update" placeholder="Cheer here..." required="required" data-emojiable="true"/>
                     </div>
                 </div>
-                <div class="col-xs-4">
-                    <div class="form-group">
+                <div class="col-xs-4 no-bottom-margin">
+                    <div class="form-group no-bottom-margin">
                         <button type="submit" class="btn btn-block" name="btnPost_chatter" id="btnPost_chatter">
                         CHATTER</button>
                     </div>
@@ -337,7 +340,28 @@
         </form>
     </div>
 </section>  
-    
+
+<!-- SHARING MEDIUMS -->
+<section class="box-content-share box-1" id="start_sharing">
+    <div class="container">
+        <div class="row">
+            <div class="row center">
+                <div class="col-md-6">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="http://twitter.com/share?url=http%3A%2F%2Fscorey.herokuapp.com&text=Follow%20our%20scorey%20here%3A%20http%3A%2F%2Fscorey.herokuapp.comvia=sud_hakar"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fscorey.herokuapp.com"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="mailto:?subject=Follow%20our%20scorey&body=Follow%20our%20scorey%20here%3A%20http%3A%2F%2Fscorey.herokuapp.com"><i class="fa fa-mail-forward"></i></a>
+                        </li>
+                        <li><a href="whatsapp://send?text=Follow%20our%20scorey%20here%3A%20http%3A%2F%2Fscorey.herokuapp.com"><i class="fa fa-whatsapp"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>      
 
 <!-- Footer -->
 

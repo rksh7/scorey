@@ -218,7 +218,7 @@ app.post('/followscorey', (req, res) => {
             //console.log('fetching scorey')
             //console.log(records.value.scorelog.length)
             //res.redirect('/')
-            res.render('followgame.ejs', {game_data: records.value})  
+            res.render('followgame.ejs', {game_data: records.value, user: updatedby})  
     })
     
 })
@@ -244,7 +244,7 @@ app.get('/followscorey', (req, res) => {
         console.log('fetching scorey')
         //console.log(records)
         
-        res.render('followgame.ejs', {game_data: records})  
+        res.render('followgame.ejs', {game_data: records, user: updatedby})  
     })    
     
 })
@@ -261,7 +261,7 @@ app.post('/joinscorey', (req, res) => {
     var venue = req.body.selected_venue
     var date = req.body.selected_date
     var updatedby = req.body.user_name
-    var score = req.body.user_name + ' joined..'
+    //var score = req.body.user_name + ' joined..'
     var chatter = req.body.user_name + ' joined..'
     var timestamp = new Date()
 
@@ -276,13 +276,13 @@ app.post('/joinscorey', (req, res) => {
     
     db.collection('live_games').findOneAndUpdate(
         {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},
-        {$push: {scorelog: {score: score, updatedby: updatedby, time: timestamp}, chatterlog: {chatter: chatter, updatedby: updatedby, time: timestamp}}},
+        {$push: {chatterlog: {chatter: chatter, updatedby: updatedby, time: timestamp}}},
         {upsert: true, returnOriginal: false},
         function(err, records) {  
             //console.log('fetching scorey')
             //console.log(records.value.scorelog.length)
             //res.redirect('/')
-            res.render('updategame.ejs', {game_data: records.value})  
+            res.render('updategame.ejs', {game_data: records.value, user: updatedby})  
     })
     
 })
@@ -308,7 +308,7 @@ app.get('/joinscorey', (req, res) => {
         console.log('fetching scorey')
         //console.log(records)
         
-        res.render('updategame.ejs', {game_data: records})  
+        res.render('updategame.ejs', {game_data: records, user: updatedby})  
     }) 
         
     /*db.collection('live_games').findOneAndUpdate(
@@ -336,6 +336,7 @@ app.post('/startscorey', (req, res) => {
     var venue = req.body.venue
     var date = req.body.date
     var score = req.body.score_update
+    var chatter = scorey_starter.concat(" joined")
     var passkey = req.body.passkey
     var timestamp = new Date()
 
@@ -350,7 +351,7 @@ app.post('/startscorey', (req, res) => {
     
     db.collection('live_games').save(
         {startedby: scorey_starter, passkey: passkey, forteam: team, againstteam: opposition, venue: venue, date: date, scorelog: [{score: score,updatedby: scorey_starter,time: timestamp}],
-        chatterlog: [{chatter: score,updatedby: scorey_starter,time: timestamp}]},
+        chatterlog: [{chatter: chatter,updatedby: scorey_starter,time: timestamp}]},
         (err, result) => {
         if (err) return console.log(err)
 
@@ -369,6 +370,7 @@ app.get('/showscorey', (req, res) => {
     
     var sess
     sess = req.session
+    var updatedby = sess.user_name    
     //console.log('session value' + sess.scorey_starter)
     //res.redirect('/')     
    db.collection('live_games').findOne({startedby: sess.scorey_starter, forteam: sess.team, againstteam: sess.opposition, venue: sess.venue, date:sess.date}, function(err, records) {
@@ -378,7 +380,7 @@ app.get('/showscorey', (req, res) => {
         
         //console.log(records.scorelog.length)
         //res.redirect('/')
-        res.render('updategame.ejs', {game_data: records})  
+        res.render('updategame.ejs', {game_data: records, user: updatedby})  
         
     })    
 })
@@ -408,7 +410,7 @@ app.post('/updatescorey', (req, res) => {
             //console.log('fetching scorey')
             //console.log(records.value.scorelog.length)
             //res.redirect('/')
-            res.render('updategame.ejs', {game_data: records.value})  
+            res.render('updategame.ejs', {game_data: records.value, user: updatedby})  
     })
     
 })
@@ -425,6 +427,7 @@ app.post('/updatechatter', (req, res) => {
     var timestamp = new Date()
     
     var score_update_from_chat = req.body.score_update_from_chat
+    console.log(req.body)
     
     var sess
     sess = req.session
@@ -439,7 +442,7 @@ app.post('/updatechatter', (req, res) => {
                 //console.log('fetching scorey')
                 //console.log(records.value.scorelog.length)
                 //res.redirect('/')
-                res.render('updategame.ejs', {game_data: records.value})  
+                res.render('updategame.ejs', {game_data: records.value, user: updatedby})  
         })        
     }
     else{
@@ -451,7 +454,7 @@ app.post('/updatechatter', (req, res) => {
                 //console.log('fetching scorey')
                 //console.log(records.value.scorelog.length)
                 //res.redirect('/')
-                res.render('updategame.ejs', {game_data: records.value})  
+                res.render('updategame.ejs', {game_data: records.value, user: updatedby})  
         })
     }
 })
@@ -477,7 +480,7 @@ app.get('/updatescorey', (req, res) => {
         console.log('fetching scorey')
         //console.log(records)
         
-        res.render('updategame.ejs', {game_data: records})  
+        res.render('updategame.ejs', {game_data: records, user: updatedby})  
     }) 
     
 })
@@ -503,10 +506,38 @@ app.get('/updatechatter', (req, res) => {
         console.log('fetching scorey')
         //console.log(records)
         
-        res.render('updategame.ejs', {game_data: records})  
+        res.render('updategame.ejs', {game_data: records, user: updatedby})  
     }) 
     
 })
+
+
+//Function to refresh follow scorey page
+app.get('/updatefollowchatter', (req, res) => {
+    
+    //console.log('entering start scorey')
+    console.log('refreshing now...')
+    //console.log(req.session)
+    
+    var sess
+    sess = req.session
+    
+    var startedby = sess.scorey_starter
+    var forteam = sess.team
+    var againstteam = sess.opposition
+    var venue = sess.venue
+    var date = sess.date
+    var updatedby = sess.user_name
+
+    db.collection('live_games').findOne({"startedby": startedby,"forteam": forteam, "againstteam": againstteam, "venue": venue, "date": date}, function(err, records) {  
+        console.log('fetching scorey')
+        //console.log(records)
+        
+        res.render('followgame.ejs', {game_data: records, user: updatedby})  
+    })    
+    
+})
+
 
 //Function to post chatter on scorey
 app.post('/updatefollowchatter', (req, res) => {
@@ -531,7 +562,7 @@ app.post('/updatefollowchatter', (req, res) => {
             //console.log('fetching scorey')
             //console.log(records.value.scorelog.length)
             //res.redirect('/')
-            res.render('followgame.ejs', {game_data: records.value})  
+            res.render('followgame.ejs', {game_data: records.value, user: updatedby})  
     })
     
 })

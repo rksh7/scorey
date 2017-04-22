@@ -111,9 +111,8 @@
 
         div.scorey {
             width: 100%;
-            height: 20vh;
+            height: 25vh;
             overflow-y: scroll;
-            box-shadow: 3px 3px 3px grey;
         }
 
         td.scorey {
@@ -128,8 +127,7 @@
             padding-top: 0.0em;
             font-size:12px;
             color: #800080;
-            margin: 0px;
-            font-weight: bold;
+            margin: 5px;
         }
 
         p.scoreyuser {
@@ -137,12 +135,12 @@
             padding-top: 0.0em;
             font-size:10px;
             color: #C0C0C0;
-            margin: 0px;
+            margin: 5px;
         }
         
         div.chatter {
             width: 100%;
-            height: 50vh;
+            height: 40vh;
             overflow-y: scroll;
         }
 
@@ -191,65 +189,7 @@
         .no-padding {padding: 0;}
 
         .btn-5 {color: #fff;border: 1px solid #fff;margin-right: 15px; line-height: 18px;}
-
-        /* CSS talk bubble */
-        .talk-bubble {
-            margin: 10px;
-            display: inline-block;
-            position: relative;
-            width: 80%;
-            height: auto;
-            background-color: lightyellow;
-            padding: 2px 5px 2px 2px;
-        }       
-
-        .talk-bubble-self {
-            margin: 10px 60px;
-            display: inline-block;
-            position: relative;
-            width: 80%;
-            height: auto;
-            background-color: white;
-            padding: 2px 5px 2px 2px;
-        }
-    
-        .tri-right.left-top:after{
-            content: ' ';
-            position: absolute;
-            width: 0;
-            height: 0;
-            left: -10px;
-            right: auto;
-            top: 0px;
-            bottom: auto;
-            border: 20px solid;
-            border-color: lightyellow transparent transparent transparent;
-        }
-
-        .tri-right.right-top:before {
-            content: ' ';
-            position: absolute;
-            width: 0;
-            height: 0;
-            left: auto;
-            right: -10px;
-            top: 0px;
-            bottom: auto;
-            border: 20px solid;
-            border-color: white transparent transparent transparent;
-        }
         
-        /* talk bubble contents */
-        .talktext{
-            padding: 0.5em;
-            text-align: left;
-            line-height: 1.1em;
-        }
-        .talktext p{
-          /* remove webkit p margins */
-            -webkit-margin-before: 0em;
-            -webkit-margin-after: 0em;
-        }        
     </style>
 
 </head>
@@ -326,7 +266,6 @@
                     </div>						
                 </div>
             </div>
-            <!-- DONT NEED SEPARATE BOX FOR SCORE UPDATE - USE @ IN INPUT
             <div class="row">
                 <div class="col-xs-9">
                     <div class="form-group">
@@ -340,7 +279,6 @@
                     </div>
                 </div>
             </div>
-            -->
             <input type="hidden" name="forteam" value="<%= game_data.forteam %>"/>
             <input type="hidden" name="againstteam" value="<%= game_data.againstteam %>"/>
             <input type="hidden" name="venue" value="<%= game_data.venue %>"/>
@@ -350,7 +288,9 @@
         </form>
     </div>
 </section>     
-   
+<!--
+<div class="whatsapp"><a class="fa fa-whatsapp" href="" target="_blank"></a></div>
+-->    
 <!-- SHOW SCOREY - CHATTER -->
 <section class="box-content box-content-close box-1" id="start_chatter">
     <div class="container">
@@ -358,37 +298,35 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group no-bottom-margin">
-                        <div class="chatter no-bottom-margin" id="divchatter">
-                            <%  for(var i=0; i<game_data.chatterlog.length; i++) {
-                                if (game_data.chatterlog[i].updatedby == user){%>
-                                    <div class="talk-bubble-self tri-right right-top">
-                                        <div class="talktext">
-                                            <p class="chatter"><%= game_data.chatterlog[i].chatter %></p>
-                                        </div>
-                                    </div>                             
-                                <%} else {%>
-                                    <div class="talk-bubble tri-right left-top">
-                                        <div class="talktext">
-                                            <p class="chatteruser"><i>~<%= game_data.chatterlog[i].updatedby %></i></p>
-                                            <p class="chatter"><%= game_data.chatterlog[i].chatter %></p>
-                                        </div>
-                                    </div>                             
-                                <%}                    
-                             } %>
+                        <div class="chatter well no-bottom-margin" id="divchatter">
+                            <table>
+                            <tr valign="top">
+                                <td class="chatter">
+                                    <% for(var i=0; i<game_data.chatterlog.length; i++) {%>
+                                    <p class="chatter"><%= game_data.chatterlog[i].chatter %></p>
+                                    <% } %>
+                                </td>
+                                <td class="chatter">
+                                    <% for(var i=0; i<game_data.chatterlog.length; i++) {%>
+                                    <p class="chatteruser"><i>~<%= game_data.chatterlog[i].updatedby %></i></p>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            </table>
                         </div>
                     </div>						
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-10 no-bottom-margin">
+                <div class="col-xs-9 no-bottom-margin">
                     <div class="form-group no-bottom-margin">
-                        <input type="text" class="form-control" name="chatter_update" id="chatter_update" placeholder="Whassup!.. Use @ to add to scoreboard" required="required" data-emojiable="true"/>
+                        <input type="text" class="form-control" name="chatter_update" id="chatter_update" placeholder="Cheer here..." required="required" data-emojiable="true"/>
                     </div>
                 </div>
-                <div class="col-xs-2 no-bottom-margin">
+                <div class="col-xs-3 no-bottom-margin">
                     <div class="form-group no-bottom-margin">
                         <button type="submit" class="btn btn-5 btn-block" name="btnPost_chatter" id="btnPost_chatter" onClick = "addTextToScorey();">
-                        <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                        CHAT</button>
                     </div>
                 </div>                        
             </div>
@@ -460,11 +398,9 @@ window.emojiPicker.discover();
 //Function to append part of text from chat to scorey    
 function addTextToScorey() {
     
-    //alert('entering');
     var chat_entered = document.getElementById('chatter_update').value;
-    //var score_entered = document.getElementById('score_update').value;
+    var score_entered = document.getElementById('score_update').value;
     var addChatToScore = "";
-    
     //checking for '@'
     var startScore = parseInt(chat_entered.indexOf("@", 0), 10);
     
@@ -482,24 +418,15 @@ function addTextToScorey() {
         var remainingChatPre = chat_entered.substring(0, startScore); ;
         var remainingChatPost = chat_entered.substring(endScore+1, chat_entered.length);
         
-        var remainingChat = remainingChatPre.concat(" ", remainingChatPost, ".. and check my score update..");
-        //alert('remaining chat' + remainingChat);
+        var remainingChat = remainingChatPre.concat(" ", remainingChatPost);
+        document.getElementById("chatter_update").value = remainingChat;
         
-        if (remainingChat.trim() != "") {
-            document.getElementById('chatter_update').value = remainingChat;    
-        }
-        else {
-            //alert('updating blank');
-            document.getElementById('chatter_update').value = "Check my score update..";    
-        }
-        
-        //alert(addChatToScore);
-        //alert(remainingChat);
     }    
+    //alert(addChatToScore);
     return true;
-}    
+    }    
 
-/*function to check SPACES as score being submitted    
+//function to check SPACES as score being submitted    
 document.getElementById('formStart_scorey').onsubmit = function () {
     
     var scoreEntered = document.getElementById('score_update').value;
@@ -509,19 +436,16 @@ document.getElementById('formStart_scorey').onsubmit = function () {
     else{
         return false;
     }
-}*/
+}
 
 //function to check SPACES as chat being submitted    
 document.getElementById('formStart_chatter').onsubmit = function () {
     
     var chatEntered = document.getElementById('chatter_update').value;
     if (chatEntered.trim() != ""){
-        
-        //alert('true');
         return true;
     }
     else{
-        //alert('false');
         return false;
     }
 }

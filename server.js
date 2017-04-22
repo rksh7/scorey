@@ -48,7 +48,7 @@ app.get('/scoreyapi/:team', (req, res) => {
     var team = req.params.team
     var date = 'today'
     
-    db.collection('live_games').findOne({team_name: team, date: date}, function(err, records) {  
+    db.collection('live_games').findOne({forteam: team, date: date}, function(err, records) {  
         console.log('fetching scorey')
         console.log(records)
         
@@ -167,7 +167,7 @@ app.post('/followscorey', (req, res) => {
 */
 
 //This handles the form being submitted from the html file. The form is submitted with a 'POST' request. Express doesn’t handle reading data from the <form> element on it’s own. We have to add another package called body-parser to gain this functionality. Make sure you place body-parser before your CRUDparser handlers!
-app.post('/startgame', (req, res) => {
+/*app.post('/startgame', (req, res) => {
     //prints a message on console
     //console.log('startgame form submitted') 
     //prints the contents of the form from the index.html when it is submitted with a POST method
@@ -183,7 +183,7 @@ app.post('/startgame', (req, res) => {
     //redirect back to some page otherwise the flow will be stuck at the database
     res.render('updategame.ejs', {game_data: req.body})      
     
-})
+})*/
 
 //Function to follow an existing scorey
 app.post('/followscorey', (req, res) => {
@@ -223,6 +223,31 @@ app.post('/followscorey', (req, res) => {
     
 })
 
+//Function to refresh follow scorey page
+app.get('/followscorey', (req, res) => {
+    
+    //console.log('entering start scorey')
+    console.log('refreshing now...')
+    //console.log(req.session)
+    
+    var sess
+    sess = req.session
+    
+    var startedby = sess.scorey_starter
+    var forteam = sess.team
+    var againstteam = sess.opposition
+    var venue = sess.venue
+    var date = sess.date
+    var updatedby = sess.user_name
+
+    db.collection('live_games').findOne({"startedby": startedby,"forteam": forteam, "againstteam": againstteam, "venue": venue, "date": date}, function(err, records) {  
+        console.log('fetching scorey')
+        //console.log(records)
+        
+        res.render('followgame.ejs', {game_data: records})  
+    })    
+    
+})
 
 //Function to Join an existing Scorey
 app.post('/joinscorey', (req, res) => {
@@ -259,6 +284,43 @@ app.post('/joinscorey', (req, res) => {
             //res.redirect('/')
             res.render('updategame.ejs', {game_data: records.value})  
     })
+    
+})
+
+//Function for autorefresh from update scorey scren
+app.get('/joinscorey', (req, res) => {
+    
+    //console.log('entering start scorey')
+    console.log('refreshing now...')
+    //console.log(req.session)
+    
+    var sess
+    sess = req.session
+    
+    var startedby = sess.scorey_starter
+    var forteam = sess.team
+    var againstteam = sess.opposition
+    var venue = sess.venue
+    var date = sess.date
+    var updatedby = sess.user_name
+
+    db.collection('live_games').findOne({"startedby": startedby,"forteam": forteam, "againstteam": againstteam, "venue": venue, "date": date}, function(err, records) {  
+        console.log('fetching scorey')
+        //console.log(records)
+        
+        res.render('updategame.ejs', {game_data: records})  
+    }) 
+        
+    /*db.collection('live_games').findOneAndUpdate(
+        {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},
+        {$push: {scorelog: {score: score, updatedby: updatedby, time: timestamp}, chatterlog: {chatter: chatter, updatedby: updatedby, time: timestamp}}},
+        {upsert: true, returnOriginal: false},
+        function(err, records) {  
+            //console.log('fetching scorey')
+            //console.log(records.value.scorelog.length)
+            //res.redirect('/')
+            res.render('updategame.ejs', {game_data: records.value})  
+    })*/
     
 })
 
@@ -379,6 +441,58 @@ app.post('/updatechatter', (req, res) => {
     
 })
 
+//Function for autorefresh from update score/update chatter scren
+app.get('/updatescorey', (req, res) => {
+    
+    //console.log('entering start scorey')
+    console.log('refreshing now...')
+    //console.log(req.session)
+    
+    var sess
+    sess = req.session
+    
+    var startedby = sess.scorey_starter
+    var forteam = sess.team
+    var againstteam = sess.opposition
+    var venue = sess.venue
+    var date = sess.date
+    var updatedby = sess.user_name
+
+    db.collection('live_games').findOne({"startedby": startedby,"forteam": forteam, "againstteam": againstteam, "venue": venue, "date": date}, function(err, records) {  
+        console.log('fetching scorey')
+        //console.log(records)
+        
+        res.render('updategame.ejs', {game_data: records})  
+    }) 
+    
+})
+
+//Function for autorefresh from update score/update chatter scren
+app.get('/updatechatter', (req, res) => {
+    
+    //console.log('entering start scorey')
+    console.log('refreshing now...')
+    //console.log(req.session)
+    
+    var sess
+    sess = req.session
+    
+    var startedby = sess.scorey_starter
+    var forteam = sess.team
+    var againstteam = sess.opposition
+    var venue = sess.venue
+    var date = sess.date
+    var updatedby = sess.user_name
+
+    db.collection('live_games').findOne({"startedby": startedby,"forteam": forteam, "againstteam": againstteam, "venue": venue, "date": date}, function(err, records) {  
+        console.log('fetching scorey')
+        //console.log(records)
+        
+        res.render('updategame.ejs', {game_data: records})  
+    }) 
+    
+})
+
 //Function to post chatter on scorey
 app.post('/updatefollowchatter', (req, res) => {
     
@@ -407,6 +521,7 @@ app.post('/updatefollowchatter', (req, res) => {
     
 })
 
+/*
 app.post('/updategame', (req, res) => {
     //prints a message on console
     console.log('updategame form submitted') 
@@ -427,7 +542,7 @@ app.post('/updategame', (req, res) => {
     })
     
 })
-
+*/
 
 //set up database connections
 const MongoClient = require('mongodb').MongoClient

@@ -242,7 +242,7 @@
 <!-- SHOW SCOREY - GAME UPDATES -->
 <section class="box-content box-content-far box-1" id="start_scorey">
     <div class="container">
-        <form name="formStart_scorey" method="POST" action="/updatescorey">
+        <form name="formStart_scorey" id="formStart_scorey" method="POST" action="/updatescorey">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group no-bottom-margin">
@@ -269,12 +269,12 @@
             <div class="row">
                 <div class="col-xs-9">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="score_update" id="score_update" placeholder="Score here..." required="required" />
+                        <input type="text" class="form-control" name="score_update" id="score_update" placeholder="Score here..." required="required"/>
                     </div>
                 </div>
                 <div class="col-xs-3">
                     <div class="form-group">
-                        <button type="submit" class="btn btn-5 btn-block" name="btnPost_scorey" id="btnPost_scorey">
+                        <button type="submit" class="btn btn-5 btn-block" name="btnPost_scorey" id="btnPost_score">
                         share</button>
                     </div>
                 </div>
@@ -294,7 +294,7 @@
 <!-- SHOW SCOREY - CHATTER -->
 <section class="box-content box-content-close box-1" id="start_chatter">
     <div class="container">
-        <form name="formStart_chatter" method="POST" action="/updatechatter">
+        <form name="formStart_chatter" id="formStart_chatter" method="POST" action="/updatechatter">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group no-bottom-margin">
@@ -414,12 +414,42 @@ function addTextToScorey() {
 
         var addChatToScore = chat_entered.substring(startScore + 1, endScore); 
         document.getElementById("score_update_from_chat").value = addChatToScore;
+
+        var remainingChatPre = chat_entered.substring(0, startScore); ;
+        var remainingChatPost = chat_entered.substring(endScore+1, chat_entered.length);
+        
+        var remainingChat = remainingChatPre.concat(" ", remainingChatPost);
+        document.getElementById("chatter_update").value = remainingChat;
+        
     }    
     //alert(addChatToScore);
     return true;
     }    
+
+//function to check SPACES as score being submitted    
+document.getElementById('formStart_scorey').onsubmit = function () {
     
+    var scoreEntered = document.getElementById('score_update').value;
+    if (scoreEntered.trim() != ""){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+//function to check SPACES as chat being submitted    
+document.getElementById('formStart_chatter').onsubmit = function () {
     
+    var chatEntered = document.getElementById('chatter_update').value;
+    if (chatEntered.trim() != ""){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 </script>  
 
 <script src="js/config.js"></script>

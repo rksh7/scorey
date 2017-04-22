@@ -286,7 +286,7 @@
 <!-- SHOW SCOREY - CHATTER -->
 <section class="box-content box-content-close box-1" id="start_chatter">
     <div class="container">
-        <form name="formStart_chatter" method="POST" action="/updatefollowchatter">
+        <form name="formStart_chatter" id="formStart_chatter" method="POST" action="/updatefollowchatter">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group no-bottom-margin">
@@ -399,7 +399,19 @@ window.addEventListener("load",function() {
 });
 
 //window.setTimeout(function(){window.location.href=window.location.href},5000);
+
+//function to check SPACES as chat being submitted    
+document.getElementById('formStart_chatter').onsubmit = function () {
     
+    var chatEntered = document.getElementById('chatter_update').value;
+    if (chatEntered.trim() != ""){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 </script>  
 
 <script src="js/config.js"></script>

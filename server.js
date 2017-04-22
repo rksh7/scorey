@@ -423,22 +423,37 @@ app.post('/updatechatter', (req, res) => {
     var date = req.body.date
     var chatter = req.body.chatter_update
     var timestamp = new Date()
-
+    
+    var score_update_from_chat = req.body.score_update_from_chat
+    
     var sess
     sess = req.session
     var updatedby = sess.user_name
     
-    db.collection('live_games').findOneAndUpdate(
-        {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},
-        {$push: {chatterlog: {chatter: chatter, updatedby: updatedby, time: timestamp}}},
-        {upsert: true, returnOriginal: false},
-        function(err, records) {  
-            //console.log('fetching scorey')
-            //console.log(records.value.scorelog.length)
-            //res.redirect('/')
-            res.render('updategame.ejs', {game_data: records.value})  
-    })
-    
+    if(score_update_from_chat == ""){
+        db.collection('live_games').findOneAndUpdate(
+            {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},
+            {$push: {chatterlog: {chatter: chatter, updatedby: updatedby, time: timestamp}}},
+            {upsert: true, returnOriginal: false},
+            function(err, records) {  
+                //console.log('fetching scorey')
+                //console.log(records.value.scorelog.length)
+                //res.redirect('/')
+                res.render('updategame.ejs', {game_data: records.value})  
+        })        
+    }
+    else{
+        db.collection('live_games').findOneAndUpdate(
+            {startedby: startedby, forteam: forteam, againstteam: againstteam, venue: venue, date: date},
+            {$push: {chatterlog: {chatter: chatter, updatedby: updatedby, time: timestamp}, scorelog: {score: score_update_from_chat, updatedby: updatedby, time: timestamp}}},
+            {upsert: true, returnOriginal: false},
+            function(err, records) {  
+                //console.log('fetching scorey')
+                //console.log(records.value.scorelog.length)
+                //res.redirect('/')
+                res.render('updategame.ejs', {game_data: records.value})  
+        })
+    }
 })
 
 //Function for autorefresh from update score/update chatter scren

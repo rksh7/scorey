@@ -275,7 +275,7 @@
                 <div class="col-xs-3">
                     <div class="form-group">
                         <button type="submit" class="btn btn-5 btn-block" name="btnPost_scorey" id="btnPost_scorey">
-                        share ></button>
+                        share</button>
                     </div>
                 </div>
             </div>
@@ -325,8 +325,8 @@
                 </div>
                 <div class="col-xs-3 no-bottom-margin">
                     <div class="form-group no-bottom-margin">
-                        <button type="submit" class="btn btn-5 btn-block" name="btnPost_chatter" id="btnPost_chatter">
-                        CHAT ></button>
+                        <button type="submit" class="btn btn-5 btn-block" name="btnPost_chatter" id="btnPost_chatter" onClick = "addTextToScorey();">
+                        CHAT</button>
                     </div>
                 </div>                        
             </div>
@@ -335,6 +335,7 @@
             <input type="hidden" name="venue" value="<%= game_data.venue %>"/>
             <input type="hidden" name="date" value="<%= game_data.date %>"/>
             <input type="hidden" name="startedby" value="<%= game_data.startedby %>"/>
+            <input type="hidden" name="score_update_from_chat" id="score_update_from_chat" value=""/>
             
         </form>
     </div>
@@ -394,6 +395,31 @@ window.emojiPicker = new EmojiPicker({
 window.emojiPicker.discover();
 });
 
+//Function to append part of text from chat to scorey    
+function addTextToScorey() {
+    
+    var chat_entered = document.getElementById('chatter_update').value;
+    var score_entered = document.getElementById('score_update').value;
+    var addChatToScore = "";
+    //checking for '@'
+    var startScore = parseInt(chat_entered.indexOf("@", 0), 10);
+    
+    if(startScore != -1){
+        
+        var endScore = parseInt(chat_entered.indexOf("@", startScore+1), 10);
+        
+        if (endScore == -1){
+            endScore = chat_entered.length;
+        }
+
+        var addChatToScore = chat_entered.substring(startScore + 1, endScore); 
+        document.getElementById("score_update_from_chat").value = addChatToScore;
+    }    
+    //alert(addChatToScore);
+    return true;
+    }    
+    
+    
 </script>  
 
 <script src="js/config.js"></script>

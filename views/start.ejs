@@ -138,22 +138,6 @@
     </div>
 </section>
     
-<!-- OLD CODE     
-<br><br><br><br><br><br>    
-<p class="welcome"> Start scoring a new game! </p>
-<br><br>
-    
-<form action="/updatescorey" method="POST">
-  <input type="text" placeholder="Team Name" name="team_name">
-  <input type="text" placeholder="Opposition" name="opposition_name">
-  <input type="text" placeholder="Venue" name="venue">
-  <input type="text" placeholder="Date" name="date">
-  <input type="text" placeholder="Authentication key" name="key">
-  <input type="hidden" name="scorey_update" value="scorey started!...">
-  <button type="submit">Submit</button>
-</form>
--->
-    
 <!-- Footer -->
 
 <!-- Core JavaScript Files -->
@@ -162,13 +146,10 @@
 <script>
 
 function setUserValues() {
-    
     var sessionUser = document.getElementById('user_name').value;
-    
     document.getElementById('scorey_starter').value = sessionUser;
     document.getElementById('scorey_user').value = sessionUser;
-    document.getElementById('chatter_user').value = sessionUser;
-    
+    document.getElementById('chatter_user').value = sessionUser;    
 }    
     
     
@@ -179,14 +160,6 @@ function setUserValues() {
             'color' : 'red',
         });
     });
-
-window.addEventListener("load",function() {
-	// Set a timeout...
-	setTimeout(function(){
-		// Hide the address bar!
-		window.scrollTo(0, 1);
-	}, 0);
-});
     
 </script>    
 

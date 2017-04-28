@@ -39,6 +39,8 @@ app.use(bodyParser.json())
 
 //tell Express to make the public folder accessible to the public by using a built-in middleware called express.static
 app.use(express.static('public'))
+app.use(express.static(__dirname))
+//console.log('dirname: ' + __dirname)
 
 //API: Fetch & show scorey for a team
 app.get('/scoreyapi/:team', (req, res) => {
@@ -101,7 +103,9 @@ app.get('/', (req, res) => {
     //console.log('entering scorey')
     //res.send('hello scorey')
     //res.sendFile('/Users/Sudhakar/Documents/Sudhakar/OneDrive/Personal/Development/scorey' + '/home.html')
-    res.render('home.ejs')
+    //res.sendFile(__dirname + '/index.html')
+    res.sendFile(__dirname + '/index.html')
+    //res.render('home.ejs')
 
 })
 

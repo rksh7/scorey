@@ -1,0 +1,15 @@
+{
+  "short_name": "Scorey",
+  "name": "Scorey",
+  "icons": [
+    {
+      "src":"images/update.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/?utm_source=homescreen",
+  "background_color": "lightblue",
+  "Theme_color": "#536878",
+  "display": "standalone"
+}
